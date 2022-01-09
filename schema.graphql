@@ -1,0 +1,200 @@
+type ChainlinkPrice @entity {
+  id: ID!
+  tokenPrice: BigInt!
+  tokenName: String!
+  updatedAt: BigInt!
+}
+type HourlyData @entity {
+  id: ID!
+
+  swap: BigInt!
+  liquidation: BigInt!
+  margin: BigInt!
+  glpMint: BigInt!
+  glpBurn: BigInt!
+
+  fees: BigInt!
+  tradeCount: BigInt!
+  liquidationCount: BigInt!
+}
+type TokenDailyData @entity {
+  id: ID!
+  token: Bytes!
+  swap: BigInt!
+  liquidation: BigInt!
+  margin: BigInt!
+  glpMint: BigInt!
+  glpBurn: BigInt!
+
+  fees: BigInt!
+  tradeCount: BigInt!
+  totalVolume: BigInt!
+  timestamp: BigInt!
+}
+
+type DailyData @entity {
+  id: ID!
+
+  swap: BigInt!
+  liquidation: BigInt!
+  margin: BigInt!
+  glpMint: BigInt!
+  glpBurn: BigInt!
+
+  fees: BigInt!
+  tradeCount: BigInt!
+  liquidationCount: BigInt!
+}
+
+type WeeklyData @entity {
+  id: ID!
+
+  swap: BigInt!
+  liquidation: BigInt!
+  margin: BigInt!
+  glpMint: BigInt!
+  glpBurn: BigInt!
+
+  fees: BigInt!
+  tradeCount: BigInt!
+  liquidationCount: BigInt!
+}
+
+type User @entity {
+  id: ID!
+  account: Bytes!
+  totalPnL: BigInt!
+  totalTrades: BigInt!
+  totalVolume: BigInt!
+  assetList: [String!]!
+  openTradesKey: [String!]!
+  openTrades: [MarginTrade!]!
+  closedTrades: [MarginTrade!]!
+  liquidatedTrades: [MarginTrade!]!
+  feePaid: BigInt!
+  marginTrades: [MarginTrade!]! @derivedFrom(field: "user")
+}
+
+type MarginTrade @entity {
+  id: ID!
+  account: Bytes!
+  collateralToken: Bytes!
+  collateralDelta: BigInt!
+  tradingToken: Bytes!
+  fee: BigInt!
+  isLong: Boolean!
+  sizeDelta: BigInt!
+  tokenPrice: BigInt!
+  isClosed: Boolean!
+  realisedPnl: BigInt!
+  tradeStart: BigInt!
+  tradeEnd: BigInt!
+  user: User!
+  transactions: [Transaction!]!
+}
+
+type UserDayData @entity {
+  id: ID!
+  account: Bytes!
+  totalPnL: BigInt!
+  totalTrades: BigInt!
+  totalVolume: BigInt!
+  assetList: [String!]!
+  feePaid: BigInt!
+}
+type UserWeeklyData @entity {
+  id: ID!
+  account: Bytes!
+  totalPnL: BigInt!
+  totalTrades: BigInt!
+  totalVolume: BigInt!
+  assetList: [String!]!
+  feePaid: BigInt!
+}
+type UserMonthlyData @entity {
+  id: ID!
+  account: Bytes!
+  totalPnL: BigInt!
+  totalTrades: BigInt!
+  totalVolume: BigInt!
+  assetList: [String!]!
+  feePaid: BigInt!
+}
+
+type MarginTransaction @entity {
+  id: ID!
+  key: String!
+  account: Bytes!
+  indexToken: Bytes!
+  collateralToken: Bytes!
+  collateralDelta: BigInt!
+  sizeDelta: BigInt!
+  fee: BigInt!
+
+  isLong: Boolean!
+  price: BigInt!
+  timestamp: BigInt!
+}
+
+type Transaction @entity {
+  id: ID!
+  key: String!
+  account: Bytes!
+  indexToken: Bytes!
+  collateralToken: Bytes!
+  collateralDelta: BigInt!
+  sizeDelta: BigInt!
+  fee: BigInt!
+  isLong: Boolean!
+  price: BigInt!
+  timestamp: BigInt!
+  type: String!
+}
+
+type LiquidationTransaction @entity {
+  id: ID!
+  key: String!
+  account: Bytes!
+  collateralToken: Bytes!
+  indexToken: Bytes!
+  isLong: Boolean!
+  size: BigInt!
+  collateral: BigInt!
+  reserveAmount: BigInt!
+  realisedPnl: BigInt!
+  markPrice: BigInt!
+  timestamp: BigInt!
+}
+type SwapTransaction @entity {
+  id: ID!
+  account: Bytes!
+  tokenIn: Bytes!
+  tokenOut: Bytes!
+  amountIn: BigInt!
+  amountOut: BigInt!
+  amountOutAfterFees: BigInt!
+  feeBasisPoints: BigInt!
+  timestamp: BigInt!
+}
+type AddGLPLiquidity @entity {
+  id: ID!
+  account: Bytes!
+  token: Bytes!
+  amount: BigInt!
+  aumInUsdg: BigInt!
+  glpSupply: BigInt!
+  usdgAmount: BigInt!
+  mintAmount: BigInt!
+  timestamp: BigInt!
+}
+type RemoveGLPLiquidity @entity {
+  id: ID!
+  account: Bytes!
+  glpAmount: BigInt!
+  aumInUsdg: BigInt!
+  glpSupply: BigInt!
+  usdgAmount: BigInt!
+  token: Bytes!
+  amountOut: BigInt!
+  timestamp: BigInt!
+}

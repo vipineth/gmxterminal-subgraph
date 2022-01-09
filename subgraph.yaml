@@ -1,0 +1,179 @@
+specVersion: 0.0.2
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: ChainlinkAggregatorBTC
+    network: arbitrum-one
+    source:
+      address: "0x942d00008D658dbB40745BBEc89A93c253f9B882"
+      abi: ChainlinkAggregator
+      startBlock: 225000
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - ChainlinkPrice
+      abis:
+        - name: ChainlinkAggregator
+          file: ./abis/ChainlinkAggregator.json
+      eventHandlers:
+        - event: AnswerUpdated(indexed int256,indexed uint256,uint256)
+          handler: handleAnswerUpdatedBTC
+      file: ./src/chainlink.ts
+  - kind: ethereum/contract
+    name: ChainlinkAggregatorETH
+    network: arbitrum-one
+    source:
+      address: "0x3607e46698d218B3a5Cae44bF381475C0a5e2ca7"
+      abi: ChainlinkAggregator
+      startBlock: 225000
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - ChainlinkPrice
+      abis:
+        - name: ChainlinkAggregator
+          file: ./abis/ChainlinkAggregator.json
+      eventHandlers:
+        - event: AnswerUpdated(indexed int256,indexed uint256,uint256)
+          handler: handleAnswerUpdatedETH
+      file: ./src/chainlink.ts
+  - kind: ethereum/contract
+    name: ChainlinkAggregatorUNI
+    network: arbitrum-one
+    source:
+      address: "0xeFc5061B7a8AeF31F789F1bA5b3b8256674F2B71"
+      abi: ChainlinkAggregator
+      startBlock: 225000
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - ChainlinkPrice
+      abis:
+        - name: ChainlinkAggregator
+          file: ./abis/ChainlinkAggregator.json
+      eventHandlers:
+        - event: AnswerUpdated(indexed int256,indexed uint256,uint256)
+          handler: handleAnswerUpdatedUNI
+      file: ./src/chainlink.ts
+  - kind: ethereum/contract
+    name: ChainlinkAggregatorLINK
+    network: arbitrum-one
+    source:
+      address: "0x9b8DdcF800a7BfCdEbaD6D65514dE59160a2C9CC"
+      abi: ChainlinkAggregator
+      startBlock: 225000
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - ChainlinkPrice
+      abis:
+        - name: ChainlinkAggregator
+          file: ./abis/ChainlinkAggregator.json
+      eventHandlers:
+        - event: AnswerUpdated(indexed int256,indexed uint256,uint256)
+          handler: handleAnswerUpdatedLINK
+      file: ./src/chainlink.ts
+  - kind: ethereum/contract
+    name: GMXValut
+    network: arbitrum-one
+    source:
+      address: "0x489ee077994B6658eAfA855C308275EAd8097C4A"
+      abi: GMXValut
+      startBlock: 225000
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - BuyUSDG
+        - ClosePosition
+        - CollectMarginFees
+        - CollectSwapFees
+        - DecreaseGuaranteedUsd
+        - DecreasePoolAmount
+        - DecreasePosition
+        - DecreaseReservedAmount
+        - DecreaseUsdgAmount
+        - DirectPoolDeposit
+        - IncreaseGuaranteedUsd
+        - IncreasePoolAmount
+        - IncreasePosition
+        - IncreaseReservedAmount
+        - IncreaseUsdgAmount
+        - LiquidatePosition
+        - SellUSDG
+        - Swap
+        - UpdateFundingRate
+        - UpdatePnl
+        - UpdatePosition
+      abis:
+        - name: GMXValut
+          file: ./abis/GMXValut.json
+      eventHandlers:
+        - event: BuyUSDG(address,address,uint256,uint256,uint256)
+          handler: handleBuyUSDG
+        - event: CollectMarginFees(address,uint256,uint256)
+          handler: handleCollectMarginFees
+        - event: CollectSwapFees(address,uint256,uint256)
+          handler: handleCollectSwapFees
+        - event: DecreaseGuaranteedUsd(address,uint256)
+          handler: handleDecreaseGuaranteedUsd
+        - event: DecreasePoolAmount(address,uint256)
+          handler: handleDecreasePoolAmount
+        - event: DecreasePosition(bytes32,address,address,address,uint256,uint256,bool,uint256,uint256)
+          handler: handleDecreasePosition
+        - event: DecreaseReservedAmount(address,uint256)
+          handler: handleDecreaseReservedAmount
+        - event: DecreaseUsdgAmount(address,uint256)
+          handler: handleDecreaseUsdgAmount
+        - event: DirectPoolDeposit(address,uint256)
+          handler: handleDirectPoolDeposit
+        - event: IncreaseGuaranteedUsd(address,uint256)
+          handler: handleIncreaseGuaranteedUsd
+        - event: IncreasePoolAmount(address,uint256)
+          handler: handleIncreasePoolAmount
+        - event: IncreasePosition(bytes32,address,address,address,uint256,uint256,bool,uint256,uint256)
+          handler: handleIncreasePosition
+        - event: LiquidatePosition(bytes32,address,address,address,bool,uint256,uint256,uint256,int256,uint256)
+          handler: handleLiquidatePosition
+        - event: SellUSDG(address,address,uint256,uint256,uint256)
+          handler: handleSellUSDG
+        - event: Swap(address,address,address,uint256,uint256,uint256,uint256)
+          handler: handleSwap
+        - event: ClosePosition(bytes32,uint256,uint256,uint256,uint256,uint256,int256)
+          handler: handleClosePosition
+        - event: UpdatePosition(bytes32,uint256,uint256,uint256,uint256,uint256,int256)
+          handler: handleUpdatePosition
+      file: ./src/mapping.ts
+  - kind: ethereum/contract
+    name: GlpManager
+    network: arbitrum-one
+    source:
+      address: "0x321F653eED006AD1C29D174e17d96351BDe22649"
+      abi: GlpManager
+      startBlock: 225000
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - AddLiquidity
+        - RemoveLiquidity
+      abis:
+        - name: GlpManager
+          file: ./abis/GLPManager.json
+      eventHandlers:
+        - event: AddLiquidity(address,address,uint256,uint256,uint256,uint256,uint256)
+          handler: handleAddLiquidity
+        - event: RemoveLiquidity(address,address,uint256,uint256,uint256,uint256,uint256)
+          handler: handleRemoveLiquidity
+      file: ./src/mapping.ts
